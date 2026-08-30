@@ -1006,8 +1006,8 @@ setTimeout(function() {
 
 /* Gifts styles */
 .gifts-wrapper {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 колонки */
   gap: 14px;
   padding: 12px;
   width: 45%;
