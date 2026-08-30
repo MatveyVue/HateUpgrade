@@ -319,6 +319,7 @@ a {
   grid-template-columns: repeat(2, 1fr); 
   gap: 4vw; 
   overflow-y: auto;
+  width: 45%;
 }
 
 .collection-header {
