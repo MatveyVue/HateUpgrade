@@ -1010,7 +1010,7 @@ setTimeout(function() {
   grid-template-columns: 1fr 1fr; /* 2 колонки */
   gap: 14px;
   padding: 12px;
-  width: 90%;
+  width: 95%;
 }
 
 .gift-card {
