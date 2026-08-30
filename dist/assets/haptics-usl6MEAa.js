@@ -1,0 +1,1 @@
+function c(){var e;const t=(e=window.Telegram)==null?void 0:e.WebApp;if(!t||String(t.platform||"").toLowerCase().startsWith("android"))return;const r=t.HapticFeedback;r&&typeof r.impactOccurred=="function"&&r.impactOccurred("medium")}export{c as t};
