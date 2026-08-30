@@ -1010,6 +1010,7 @@ setTimeout(function() {
   flex-wrap: wrap;
   gap: 14px;
   padding: 12px;
+  width: 45%;
 }
 
 .gift-card {
