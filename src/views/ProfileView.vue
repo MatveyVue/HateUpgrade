@@ -98,8 +98,6 @@
           <img class="gift-card-model" :src="gift.modelUrl">
         </span>
       </button>
-      <p class="title" style="color:white;">{{ gift.modelName }}</p>
-      <p class="number">{{ gift.backgroundName }}</p>
     </div>
   </div>
 </div>
@@ -1012,11 +1010,6 @@ setTimeout(function() {
   flex-wrap: wrap;
   gap: 14px;
   padding: 12px;
-}
-
-.gifts-container {
-  width: calc(50% - 7px);
-  text-align: center;
 }
 
 .gift-card {
