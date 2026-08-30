@@ -108,7 +108,6 @@
     <div class="gift-modal-header">
       <div>
         <h3 class="gift-modal-title">{{ selectedGift.modelName }}</h3>
-        <p class="gift-modal-subtitle">{{ selectedGift.backgroundName }} background</p>
       </div>
       <button class="gift-modal-close" type="button" aria-label="Close" @click="closeGiftModal">x</button>
     </div>
@@ -1138,12 +1137,6 @@ setTimeout(function() {
   color: white;
   font-size: 18px;
   margin: 0;
-}
-
-.gift-modal-subtitle {
-  color: #8e8e93;
-  font-size: 12px;
-  margin: 4px 0 0;
 }
 
 .gift-modal-close {
