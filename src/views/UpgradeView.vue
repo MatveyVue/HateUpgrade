@@ -11,7 +11,17 @@
 
     <div class="upgrade-stage" :class="{ 'is-open': resultOpen }" ref="stageRef">
       <div v-if="!resultOpen" class="stage-idle">
-        <p class="idle-hint">Press open to reveal your gift</p>
+        <img
+          v-if="backgroundCatalog[0]?.url"
+          class="idle-bg"
+          :src="backgroundCatalog[0].url"
+          alt=""
+        >
+        <div class="idle-marquee-track">
+          <div v-for="(cap, i) in idleCaps" :key="i" class="idle-marquee-cell">
+            <img :src="cap.url" :alt="cap.name">
+          </div>
+        </div>
       </div>
 
       <div v-else :key="animationKey" class="stage-result">
@@ -173,6 +183,8 @@ const CAP_SPIN_MS = 8000
 
 const UPGRADE_COST = 1000000000000000n // 1,000,000 SCMD69 (9 decimals)
 
+const idleCaps = [...modelCatalog, ...modelCatalog]
+
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)]
 }
@@ -302,7 +314,7 @@ async function saveUpgrade(background, model) {
     id: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
     backgroundId: background.id,
     backgroundName: background.name,
-    backgroundCss: background.background,
+    backgroundCss: background.background || '',
     backgroundUrl: background.url || '',
     modelId: model.id,
     modelName: model.name,
