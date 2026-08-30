@@ -314,17 +314,6 @@ a {
   margin-left: 13vw;
 }
 
-.gifts-container {
-  border: none;
-  padding: 8px;
-  border-radius: 25px;
-  background-color: #222222;
-  width: 100%; 
-  margin: 0 auto; 
-  box-sizing: border-box;
-  min-width: 100px;
-}
-
 .gifts-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
