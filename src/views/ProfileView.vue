@@ -873,7 +873,7 @@ setTimeout(function() {
 
 .tab-panel {
   padding-bottom: 130px;
-  background: #06080d;
+  background: rgb(10, 11, 13);
 }
 
 /* Wallet modals */
