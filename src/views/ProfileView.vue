@@ -1242,6 +1242,7 @@ setTimeout(function() {
   background: rgb(30,88,215);
   border: none;
   color: white;
+  margin-top: -20px;
 }
 
 .gift-modal-secondary {
