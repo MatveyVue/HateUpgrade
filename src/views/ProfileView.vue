@@ -54,13 +54,16 @@
     <p style="margin-left: 12px;" class="name-transaction">No activity yet</p>
   </div>
 
-  <div style="margin-left: -10px; margin-top: -10px;" v-else v-for="item in activityList" :key="item.created_at + item.type" class="transaction-container">
-   <img style="width: 70px;" :src="getActivityIcon(item.type)">
-    <p style="margin-top: -15px; margin-left: -15px;" class="name-transaction">{{ getActivityTitle(item.type) }}</p>
-    <p style="margin-top: -75px; margin-left: 65px;" class="date-transaction">{{ formatActivityDate(item.created_at) }}</p>
-    <p style="position: absolute; right: 5px; margin-top: -40px;" class="sum-transaction" :class="getActivityClass(item.type)">{{ formatActivityAmount(item.amount, item.type) }}</p>
-    <p style="position: absolute; right: 5px; margin-top: -8px;" class="token-transaction">SCMD69</p>
-    <hr style="width: 90%; border: 0; height: 1px; background: #18191e; margin-top: -50px; margin-left: 25px;">
+  <div v-else v-for="item in activityList" :key="item.created_at + item.type" class="transaction-container">
+    <img class="transaction-icon" :src="getActivityIcon(item.type)" alt="">
+    <div class="transaction-info">
+      <p class="name-transaction">{{ getActivityTitle(item.type) }}</p>
+      <p class="date-transaction">{{ formatActivityDate(item.created_at) }}</p>
+    </div>
+    <div class="transaction-amount">
+      <p class="sum-transaction" :class="getActivityClass(item.type)">{{ formatActivityAmount(item.amount, item.type) }}</p>
+      <p class="token-transaction">SCMD69</p>
+    </div>
   </div>
 </div>
 <p style="color: #0a0b0d;">.</p>
@@ -390,7 +393,7 @@ function formatTokenAmount(value) {
 }
 
 function formatActivityAmount(amount, type) {
-  const negative = ['withdraw', 'withdraw_sent', 'withdraw_confirmed', 'unstake']
+  const negative = ['upgrade', 'withdraw', 'withdraw_sent', 'withdraw_confirmed', 'unstake']
   const sign = negative.includes(type) ? '-' : '+'
   return `${sign}${formatTokenAmount(amount)}`
 }
@@ -398,6 +401,7 @@ function formatActivityAmount(amount, type) {
 function getActivityClass(type) {
   if (['withdraw', 'withdraw_sent', 'withdraw_confirmed', 'unstake'].includes(type)) return 'withdraw'
   if (['deposit', 'stake', 'restake'].includes(type)) return 'deposit'
+  if (type === 'upgrade') return 'upgrade'
   return 'claim'
 }
 
@@ -410,13 +414,18 @@ function getActivityTitle(type) {
     withdraw: 'Withdraw',
     withdraw_sent: 'Withdraw Sent',
     withdraw_confirmed: 'Withdraw Confirmed',
-    claim: 'Claim Rewards'
+    claim: 'Claim Rewards',
+    upgrade: 'Upgrade'
   }
 
   return titles[type] || type
 }
 
 function getActivityIcon(type) {
+  if (['upgrade'].includes(type)) {
+    return 'https://github.com/MatveyVue/Profiles-Telegram/blob/main/gift.PNG?raw=true'
+  }
+
   if (['withdraw', 'withdraw_sent', 'withdraw_confirmed', 'unstake'].includes(type)) {
     return 'https://github.com/MatveyVue/Profiles-Telegram/blob/main/withdraw.PNG?raw=true'
   }
@@ -582,37 +591,67 @@ setTimeout(function() {
 }
 
 .transaction-container {
-  margin-top: -10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #18191e;
+}
+
+.transaction-container:last-child {
+  border-bottom: none;
+}
+
+.transaction-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.transaction-amount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 12px;
 }
 
 .name-transaction {
   font-size: 14px;
-  margin-left: 65px;
-  margin-top: -57px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .date-transaction {
   font-size: 12px;
   color: #6e6e6e;
-  margin-left: 65px;
-  margin-top: -15px;
+  margin: 2px 0 0;
+  white-space: nowrap;
 }
 
 .sum-transaction {
   display: flex;
   justify-content: flex-end;
   font-size: 14px;
-  margin-top: -44px;
-  margin-right: 15px;
+  margin: 0;
   color: #4f9e3e;
+  white-space: nowrap;
 }
 
 .token-transaction {
-  float: right;
   font-size: 12px;
   color: #6e6e6e;
-  margin-right: 15px;
-  margin-top: -28px;
+  margin: 2px 0 0;
+  white-space: nowrap;
 }
 
 .profile-header {
@@ -830,6 +869,7 @@ setTimeout(function() {
 .sum-transaction.claim { color: #4f9e3e; }
 .sum-transaction.deposit { color: #1e58d7; }
 .sum-transaction.withdraw { color: #ff4d4d; }
+.sum-transaction.upgrade { color: #ffb020; }
 
 .tab-panel {
   padding-bottom: 130px;
@@ -970,12 +1010,12 @@ setTimeout(function() {
 .gifts-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   padding: 12px;
 }
 
 .gifts-container {
-  width: calc(33.333% - 8px);
+  width: calc(50% - 7px);
   text-align: center;
 }
 
@@ -995,8 +1035,8 @@ setTimeout(function() {
 }
 
 .title {
-  font-size: 12px;
-  margin-top: 6px;
+  font-size: 14px;
+  margin-top: 8px;
   margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -1004,7 +1044,7 @@ setTimeout(function() {
 }
 
 .number {
-  font-size: 10px;
+  font-size: 11px;
   color: #6e6e6e;
   margin-top: 0;
 }
@@ -1150,12 +1190,14 @@ setTimeout(function() {
   justify-content: center;
   width: 100%;
   aspect-ratio: 1 / 1;
+  padding: 6px;
+  box-sizing: border-box;
 }
 
 .gift-card-model {
   position: relative;
   z-index: 1;
-  width: 72%;
+  width: 86%;
   object-fit: contain;
   filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
 }
